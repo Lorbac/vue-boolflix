@@ -36,5 +36,24 @@ export default {
         h1 {
             color: red;
         }
+
+        .search-panel {
+
+            input {
+                border-radius: 5px;
+                margin: 0 10px;
+            }
+
+            button {
+                border-radius: 2px;
+                border: none;
+                padding: 1px 3px;
+                font-weight: 600;
+
+                &:active {
+                    background-color: rgb(156, 57, 57);
+                }
+            }
+        }
     }
 </style>
