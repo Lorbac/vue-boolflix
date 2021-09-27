@@ -58,6 +58,7 @@ export default {
       
       li {
         flex-basis: calc((100% / 6));
+        padding: 5px;
       }
     }
   }
