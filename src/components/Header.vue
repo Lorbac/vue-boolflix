@@ -1,10 +1,10 @@
 <template>
     <div class="nav-bar">
         <div class="logo">
-            <h1>BOOLFLIX</h1>
+            <a href="/"><h1>BOOLFLIX</h1></a>
         </div>
         <div class="search-panel">
-            <input v-model="inputSearch" type="text" @keydown.enter="$emit('outputSearch', inputSearch)">
+            <input placeholder="Cerca il tuo film" v-model="inputSearch" type="text" @keydown.enter="$emit('outputSearch', inputSearch)">
             <button @click.prevent="$emit('outputSearch', inputSearch)">
                 Cerca
             </button>
@@ -33,8 +33,12 @@ export default {
         background-color: black;
         padding: 0 30px;
 
-        h1 {
-            color: red;
+        a {
+            text-decoration: none;
+            
+            h1 {
+                color: red;
+            }
         }
 
         .search-panel {

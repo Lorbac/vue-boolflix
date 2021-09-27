@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Header @outputSearch="inputSearch"/>
-    <Main :movies="movies" :APIquery="APIquery"/>
+    <Main :movies="movies" :series="series" :APIquery="APIquery"/>
   </div>
 </template>
 
@@ -18,25 +18,38 @@ export default {
   },
   data() {
     return {
-      APIurl:"https://api.themoviedb.org/3/search/movie?",
+      APIurl:"https://api.themoviedb.org/3/search/",
       APIkey:"api_key=9a2157ecf67a695b111481576d0b50c6",
       movies: [],
+      series: [],
       APIquery:"",
     }
   },
   created() {
     this.getMovies();
+    this.getSeries();
   },
   methods: {
     inputSearch(text) {
       this.APIquery = text;
       this.getMovies();
+      this.getSeries();
     },
     getMovies() {
       axios
-          .get(this.APIurl + this.APIkey + "&query=" + this.APIquery)
+          .get(this.APIurl + "movie?" + this.APIkey + "&query=" + this.APIquery)
           .then(res => {
             this.movies = res.data.results;
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+    },
+    getSeries() {
+      axios
+          .get(this.APIurl + "tv?" + this.APIkey + "&query=" + this.APIquery)
+          .then(res => {
+            this.series = res.data.results;
           })
           .catch((error) => {
             console.log(error);
