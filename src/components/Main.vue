@@ -1,6 +1,6 @@
 <template>
   <div class="container" v-if="APIquery !=''">
-    <h3>Films</h3>
+    <h3>Film</h3>
     <div class="films">
       <ul>
         <li v-for="(movie, index) in movies" :key="index">
@@ -8,7 +8,7 @@
         </li>
       </ul>
     </div>
-    <h3>TV Series</h3>
+    <h3>Serie TV</h3>
     <div class="tv-series">
     <ul>
       <li v-for="(movie, index) in series" :key="index">
@@ -41,18 +41,23 @@ export default {
 
   .container {
     padding: 15px;
+    background-color: #222222;
+
+    h3 {
+      color: white;
+      padding: 15px;
+      font-size: 30px;
+      border-bottom: 1px solid red;
+    }
 
     ul {
-      padding: 10px;
+      padding: 10px 0;
       list-style: none;
       display: flex;
       flex-wrap: wrap;
-      justify-content: center;
       
       li {
-        flex-basis: 30%;
-        padding: 10px;
-  
+        flex-basis: calc((100% / 6));
       }
     }
   }
