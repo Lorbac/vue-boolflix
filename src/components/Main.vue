@@ -3,7 +3,7 @@
     <h3>Film</h3>
     <div class="films">
       <ul>
-        <li v-for="(movie, index) in movies" :key="index">
+        <li v-for="movie in movies" :key="movie.id">
           <Card :movie="movie"/>
         </li>
       </ul>
@@ -11,7 +11,7 @@
     <h3>Serie TV</h3>
     <div class="tv-series">
     <ul>
-      <li v-for="(movie, index) in series" :key="index">
+      <li v-for="movie in series" :key="movie.id">
         <Card :movie="movie"/>
       </li>
     </ul>
@@ -40,13 +40,42 @@ export default {
 <style scoped lang="scss">
 
   .container {
-    padding: 15px;
+    height: calc(100vh - 80px);
+    width: 100%;
     background-color: #222222;
+    
+    .films {
+      overflow-x: auto;
+    }
+
+    .films::-webkit-scrollbar {
+      width: 5px;
+      height: 8px;
+      background-color: #aaa;
+    }
+
+    .films::-webkit-scrollbar-thumb {
+      background: #000;
+    }
+
+    .tv-series {
+      overflow-x: auto;
+    }
+
+    .tv-series::-webkit-scrollbar-thumb {
+      background: #000;
+    }
+
+    .tv-series::-webkit-scrollbar {
+      width: 5px;
+      height: 8px;
+      background-color: #aaa;
+    }
 
     h3 {
       color: white;
-      padding: 15px;
-      font-size: 30px;
+      padding: 0 15px;
+      font-size: 25px;
       border-bottom: 1px solid red;
     }
 
@@ -54,11 +83,10 @@ export default {
       padding: 10px 0;
       list-style: none;
       display: flex;
-      flex-wrap: wrap;
       
       li {
-        flex-basis: calc((100% / 6));
-        padding: 5px;
+        flex-basis: calc((100% / 6) - 10px);
+        padding: 5px 0;
       }
     }
   }

@@ -44,15 +44,18 @@ export default {
         .search-panel {
 
             input {
+                outline: none;
                 border-radius: 5px;
                 margin: 0 10px;
+                padding: 5px;
             }
 
             button {
                 border-radius: 2px;
                 border: none;
-                padding: 1px 3px;
+                padding: 5px;
                 font-weight: 600;
+                background-color: red;
 
                 &:active {
                     background-color: rgb(156, 57, 57);

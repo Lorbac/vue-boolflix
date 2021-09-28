@@ -1,19 +1,31 @@
 <template>
-<div class="card">
-    <div class="card-movie" v-if="movie.title">
-        <img class="poster" :src="`https://image.tmdb.org/t/p/w342/${movie.poster_path}`" :alt="`${movie.title}`">
-        <h3>{{ movie.title }}</h3>
-        <p>Titolo originale: {{ movie.original_title }}</p>
-        <div>Voto: <i v-for="i in getVote()" :key="i" class="fas fa-star"></i></div>
-        <img class="flags" :src="require(`../assets/${movie.original_language}.png`)" :alt="`${movie.original_language}`">
+<div class="flip-card">
+    <div class="flip-card-inner" v-if="movie.title">
+        <div class="flip-card-front">
+            <img v-if="movie.poster_path" class="poster" :src="`https://image.tmdb.org/t/p/w342/${movie.poster_path}`" :alt="`${movie.title}`">
+            <img class="poster" v-else src="../assets/not-found.png" alt="">
+        </div>
+        <div class="flip-card-back">
+            <h3>{{ movie.title }}</h3>
+            <p>Titolo originale: {{ movie.original_title }}</p>
+            <p>Voto: <i v-for="i in 5" :key="i" class="fa-star" :class="(i <= getVote()) ? 'fas' : 'far'"></i></p>
+            <img class="flags" :src="require(`../assets/${movie.original_language}.png`)" :alt="`${movie.original_language}`">
+            <p class="overview">Trama: {{ movie.overview }}</p>
+        </div>
     </div>
 
-    <div class="card-series" v-else>
-        <img class="poster" :src="`https://image.tmdb.org/t/p/w342/${movie.poster_path}`" :alt="`${movie.name}`">
-        <h3>{{ movie.name }}</h3>
-        <p>Titolo originale: {{ movie.original_name }}</p>
-        <p>Voto: <i v-for="i in getVote()" :key="i" class="fas fa-star"></i></p>
-        <img class="flags" :src="require(`../assets/${movie.original_language}.png`)" :alt="`${movie.original_language}`">
+    <div class="flip-card-inner" v-else>
+        <div class="flip-card-front">
+            <img v-if="movie.poster_path" class="poster" :src="`https://image.tmdb.org/t/p/w342/${movie.poster_path}`" :alt="`${movie.name}`">
+            <img class="poster" v-else src="../assets/not-found.png" alt="">
+        </div>
+        <div class="flip-card-back">
+            <h3>{{ movie.name }}</h3>
+            <p>Titolo originale: {{ movie.original_name }}</p>
+            <p>Voto: <i v-for="i in 5" :key="i" class="fa-star" :class="(i <= getVote()) ? 'fas' : 'far'"></i></p>
+            <img class="flags" :src="require(`../assets/${movie.original_language}.png`)" :alt="`${movie.original_language}`">
+            <p class="overview">Trama: {{ movie.overview }}</p>
+        </div>
     </div>
 </div>
 
@@ -38,23 +50,56 @@ export default {
 <style scoped lang="scss">
     @import '~@fortawesome/fontawesome-free/css/all.min.css';
 
-    .card {
+    .flip-card {
+        background-color: transparent;
+        width: 300px;
+        height: 350px;
+        // perspective: 1000px;
+    }
 
-        .poster, h3, p, div {
-            width: 100%;
-            color: white;
-        }
+    .flip-card-inner {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        transition: transform 0.6s;
+        transform-style: preserve-3d;
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    }
 
-        .poster {
-            height: 440px;
-        }
+    .flip-card:hover .flip-card-inner {
+        transform: rotateY(180deg);
+    }
+
+    .flip-card-front, .flip-card-back {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+    }
+
+    .flip-card-front {
+        background-color: #bbb;
+        color: black;
+    }
+
+    .flip-card-back {
+        background-color: black;
+        color: white;
+        transform: rotateY(180deg);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
 
         h3 {
-            font-size: 12px;
+            font-size: 14px;
+            padding: 10px;
         }
-        
+
         p {
-            font-size: 10px;
+            font-size: 12px;
+            padding: 5px;
         }
 
         .flags {
@@ -64,5 +109,19 @@ export default {
         i {
             color: yellow;
         }
+
+        .overview {
+            overflow-x: auto;
+        }
+    }
+    
+    .poster, h3, p, div {
+        color: white;
+    }
+
+    .poster {
+        width: 100%;
+        height: 350px;
+        object-fit:fill;
     }
 </style>
