@@ -22,7 +22,14 @@
       </ul>
       </div>
     </div>
-    <h2 v-else>Inserisci una parola chiave nella ricerca</h2>
+    <div class="mostPopular" v-else >
+      <h3>Popolari</h3>
+      <ul>
+        <li v-for="movie in mostPopular" :key="movie.id">
+          <Card :movie="movie"/>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -34,23 +41,29 @@ export default {
   props: {
    "movies": Array,
    "series": Array,
+   "mostPopular": Array,
    "APIquery": String,
+  },
+  data () {
+    return {
+      scrollDistance: 800,
+    }
   },
   components: {
     Card,
   },
   methods: {
     rightScrollFilm() {
-      return document.getElementById("films").scrollLeft += 800;
+      document.getElementById("films").scrollLeft += this.scrollDistance;
     },
     leftScrollFilm() {
-      return document.getElementById("films").scrollLeft -= 800;
+      document.getElementById("films").scrollLeft -= this.scrollDistance;
     },
     rightScrollSerie() {
-      return document.getElementById("tv-series").scrollLeft += 800;
+      document.getElementById("tv-series").scrollLeft += this.scrollDistance;
     },
     leftScrollSerie() {
-      return document.getElementById("tv-series").scrollLeft -= 800;
+      document.getElementById("tv-series").scrollLeft -= this.scrollDistance;
     }
   }
 }
@@ -148,11 +161,6 @@ export default {
       background-color: #aaa;
     }
 
-    h3 {
-      color: white;
-      padding: 5px 15px 0 15px;
-      font-size: 22px;
-    }
 
     ul {
       list-style: none;
@@ -165,9 +173,30 @@ export default {
     }
   }
 
-  h2 {
-    text-align: center;
-    margin-top: 150px;
+  h3 {
+    color: white;
+    padding: 5px 15px 0 15px;
+    font-size: 22px;
+  }
+
+  .mostPopular {
+    height: calc(100vh - 80px);
+    width: 100%;
+    background-color: #222222;
+    overflow-y: auto;
+    position: relative;
+
+    ul {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+
+      li {
+        padding: 5px 0;
+      }
     }
+
+  }
 
 </style>

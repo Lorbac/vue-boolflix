@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Header @outputSearch="inputSearch"/>
-    <Main :movies="movies" :series="series" :APIquery="APIquery"/>
+    <Main :mostPopular="mostPopular" :movies="movies" :series="series" :APIquery="APIquery"/>
   </div>
 </template>
 
@@ -22,12 +22,12 @@ export default {
       APIkey:"api_key=9a2157ecf67a695b111481576d0b50c6",
       movies: [],
       series: [],
+      mostPopular: [],
       APIquery:"",
     }
   },
   created() {
-    this.getMovies();
-    this.getSeries();
+    this.getMostPopular();
   },
   methods: {
     inputSearch(text) {
@@ -50,6 +50,16 @@ export default {
           .get(this.APIurl + "tv?" + this.APIkey + "&query=" + this.APIquery)
           .then(res => {
             this.series = res.data.results;
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+    },
+    getMostPopular() {
+      axios
+          .get("https://api.themoviedb.org/3/tv/popular?" + this.APIkey)
+          .then(res => {
+            this.mostPopular = res.data.results;
           })
           .catch((error) => {
             console.log(error);
