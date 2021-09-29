@@ -38,6 +38,7 @@ export default {
             
             h1 {
                 color: red;
+                font-weight: 800;
             }
         }
 

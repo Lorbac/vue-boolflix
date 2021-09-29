@@ -53,7 +53,7 @@ export default {
     .flip-card {
         background-color: transparent;
         width: 300px;
-        height: 350px;
+        height: 450px;
         // perspective: 1000px;
     }
 
@@ -121,7 +121,7 @@ export default {
 
     .poster {
         width: 100%;
-        height: 350px;
+        height: 450px;
         object-fit:fill;
     }
 </style>
